@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dj5bgjff4pu8w"]
+
+[ext_resource type="Script" path="res://scripts/bullet.gd" id="1_mkf8s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h1aey"]
+size = Vector2(10, 10)
+
+[node name="Bullet" type="Area2D"]
+script = ExtResource("1_mkf8s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_h1aey")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+scale = Vector2(0.875, 0.666667)
+color = Color(0, 1, 1, 1)
+polygon = PackedVector2Array(-8, -3, -8, 3, 8, 3, 8, -3)
+
+[node name="visibleNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-5, 0)
+scale = Vector2(0.2, 0.2)
+
+[connection signal="screen_exited" from="visibleNotifier" to="." method="_on_visible_notifier_screen_exited"]
