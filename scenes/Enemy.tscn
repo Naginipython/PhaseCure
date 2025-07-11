@@ -16,3 +16,10 @@ polygon = PackedVector2Array(-8, -3, -8, 3, 8, 3, 8, -3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_h1aey")
+
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
