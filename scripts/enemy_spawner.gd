@@ -10,12 +10,11 @@ signal enemy_spawned(enemy_instance)
 func _ready() -> void:
 	screen_size = get_viewport().get_visible_rect().size
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if time_to_spawn_enemy:
 		time_to_spawn_enemy = false
 		var camera_pos: Vector2 = camera.global_position
-		var zoom = 4
-		var half_size: Vector2 = (screen_size * 0.5) / zoom
+		var half_size: Vector2 = (screen_size * 0.5) / camera.zoom
 		
 		var top_left: Vector2 = camera_pos - half_size
 		var bot_right: Vector2 = camera_pos + half_size

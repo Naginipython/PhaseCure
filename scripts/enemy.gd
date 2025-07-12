@@ -22,14 +22,14 @@ func _physics_process(delta: float) -> void:
 		hit_timer.start()
 
 
-func _on_body_entered(body: Node2D) -> void:
+func _on_body_entered(_body: Node2D) -> void:
 	is_hitting_player = true
 
-func _on_body_exited(body: Node2D) -> void:
+func _on_body_exited(_body: Node2D) -> void:
 	is_hitting_player = false
 
-func take_damage(dmg: float) -> void:
-	health -= dmg
+func take_damage(dmg_taken: float) -> void:
+	health -= dmg_taken
 	if health <= 0:
 		emit_signal("enemy_died", position)
 		queue_free()

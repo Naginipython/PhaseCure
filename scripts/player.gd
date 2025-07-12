@@ -44,7 +44,7 @@ func _on_health_regen_timer_timeout() -> void:
 
 #### My Functions
 
-func move_player(delta: float) -> void:
+func move_player(_delta: float) -> void:
 	var x_input := Input.get_axis("left", "right")
 	var y_input := Input.get_axis("up", "down")
 	# Move X
@@ -64,7 +64,7 @@ func take_damage(dmg: int) -> void:
 	hp -= dmg
 	health_regen_timer.start()
 
-func get_exp(type: int) -> void:
+func get_exp(_type: int) -> void:
 	print("get exp")
 
 func check_health() -> void:
