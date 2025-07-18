@@ -3,12 +3,12 @@ extends Node2D
 const ENEMY := preload("res://scenes/Enemy.tscn")
 var time_to_spawn_enemy = true
 var screen_size: Vector2 
-@onready var camera: Camera2D = $"../Player/Camera2D"
-@onready var player: CharacterBody2D = %Player
+@onready var camera: Camera2D
 signal enemy_spawned(enemy_instance)
 
 func _ready() -> void:
 	screen_size = get_viewport().get_visible_rect().size
+	camera = get_node("/root/World/Player/Camera")
 
 func _process(_delta: float) -> void:
 	if time_to_spawn_enemy:

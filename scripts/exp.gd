@@ -17,5 +17,5 @@ func player_in_range() -> void:
 	is_player_in_range = true
 
 func _on_body_entered(body: Node2D) -> void:
-	body.get_exp(0)
+	body.get_xp(0)
 	queue_free()

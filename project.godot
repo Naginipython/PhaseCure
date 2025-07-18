@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="PhaseCure"
-run/main_scene="res://scenes/world.tscn"
+run/main_scene="res://scenes/UI/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Singleton="*res://scripts/singleton.gd"
 
 [display]
 
@@ -22,6 +26,15 @@ window/stretch/mode="canvas_items"
 [dotnet]
 
 project/assembly_name="PhaseCure"
+
+[file_customization]
+
+folder_colors={
+"res://resources/": "green",
+"res://scenes/": "orange",
+"res://scripts/": "blue",
+"res://scripts/characters/pippa/": "pink"
+}
 
 [input]
 

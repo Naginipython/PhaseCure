@@ -1,0 +1,73 @@
+[gd_scene load_steps=8 format=3 uid="uid://fq3mj0ldm6fj"]
+
+[ext_resource type="Script" path="res://scripts/characters/pippa/player_pippa.gd" id="1_6cow6"]
+[ext_resource type="Texture2D" uid="uid://dvielc340s6gx" path="res://icon.svg" id="2_jt03g"]
+[ext_resource type="PackedScene" uid="uid://q0tg7ua7eatm" path="res://scenes/screen_ui.tscn" id="3_x8rc4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dqkch"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g2els"]
+radius = 45.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g2els"]
+bg_color = Color(0, 0, 0, 0.501961)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qhqgy"]
+bg_color = Color(1, 0, 0, 1)
+
+[node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
+collision_mask = 5
+script = ExtResource("1_6cow6")
+
+[node name="Icon" type="Sprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(0, -1)
+rotation = -2.9145
+scale = Vector2(0.140625, 0.140625)
+texture = ExtResource("2_jt03g")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dqkch")
+
+[node name="BulletContainer" type="Node" parent="."]
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="PickupArea" type="Area2D" parent="."]
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+shape = SubResource("CircleShape2D_g2els")
+
+[node name="Camera" type="Camera2D" parent="."]
+unique_name_in_owner = true
+zoom = Vector2(3, 3)
+
+[node name="ScreenUI" parent="Camera" instance=ExtResource("3_x8rc4")]
+unique_name_in_owner = true
+
+[node name="Healthbar" type="ProgressBar" parent="."]
+visible = false
+offset_left = -13.0
+offset_top = -13.0
+offset_right = 13.0
+offset_bottom = -12.0
+theme_override_styles/background = SubResource("StyleBoxFlat_g2els")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qhqgy")
+value = 100.0
+show_percentage = false
+
+[node name="fullHealthTimer" type="Timer" parent="Healthbar"]
+one_shot = true
+
+[node name="healthRegenTimer" type="Timer" parent="Healthbar"]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="PickupArea" to="." method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="Healthbar/fullHealthTimer" to="." method="_on_full_health_timer_timeout"]
+[connection signal="timeout" from="Healthbar/healthRegenTimer" to="." method="_on_health_regen_timer_timeout"]

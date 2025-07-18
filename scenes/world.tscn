@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://myn5pku80ud5"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_4wyf3"]
-[ext_resource type="PackedScene" uid="uid://c0s0ppjxs5nsf" path="res://scenes/player.tscn" id="1_nnsk1"]
+[ext_resource type="PackedScene" uid="uid://c0s0ppjxs5nsf" path="res://scenes/Players/player.tscn" id="2_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://dssm5rhht8bpr" path="res://scenes/tile_maps.tscn" id="3_71j4m"]
+[ext_resource type="Resource" uid="uid://n47tmminkjvy" path="res://resources/player.tres" id="3_qfnet"]
 [ext_resource type="Script" path="res://scripts/enemy_spawner.gd" id="4_k0juu"]
-[ext_resource type="PackedScene" uid="uid://b8ugbthacyc0w" path="res://scenes/exp.tscn" id="5_71j4m"]
 [ext_resource type="Script" path="res://scripts/map_extender.gd" id="6_qfnet"]
 
 [node name="World" type="Node2D"]
@@ -16,27 +16,20 @@ script = ExtResource("1_4wyf3")
 [node name="Wave1Timer" type="Timer" parent="Waves"]
 one_shot = true
 
-[node name="EnemySpawner" type="Node2D" parent="."]
-position = Vector2(0, -1)
-script = ExtResource("4_k0juu")
+[node name="Player" parent="." instance=ExtResource("2_rwgxs")]
+position = Vector2(400, 400)
+character = ExtResource("3_qfnet")
 
 [node name="MapExtender" type="Node2D" parent="."]
+y_sort_enabled = true
 script = ExtResource("6_qfnet")
 
 [node name="map(0, 0)" parent="MapExtender" instance=ExtResource("3_71j4m")]
 position = Vector2(400, 400)
 
-[node name="Player" parent="." instance=ExtResource("1_nnsk1")]
-unique_name_in_owner = true
-position = Vector2(400, 400)
-collision_mask = 5
+[node name="EnemySpawner" type="Node2D" parent="."]
+script = ExtResource("4_k0juu")
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(3, 3)
-
-[node name="Exp" parent="." instance=ExtResource("5_71j4m")]
-position = Vector2(476, 357)
-
-[connection signal="enemy_spawned" from="EnemySpawner" to="." method="_on_enemy_spawner_enemy_spawned"]
+[connection signal="enemy_spawned" from="EnemySpawner" to="." method="_on_enemy_spawned"]
 
 [editable path="MapExtender/map(0, 0)"]

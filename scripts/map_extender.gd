@@ -2,7 +2,7 @@ extends Node2D
 
 const MAP = preload("res://scenes/tile_maps.tscn")
 var screen_size: Vector2 
-@onready var camera: Camera2D = $"../Player/Camera2D"
+@onready var camera: Camera2D
 @onready var tile_maps: Node2D = $"map(0, 0)"
 @onready var ground_tile_layer: TileMapLayer = $"map(0, 0)/GroundTileLayer"
 
@@ -16,9 +16,12 @@ func _ready() -> void:
 	map_size = (ground_tile_layer.get_used_rect().size * ground_tile_layer.tile_set.tile_size)
 
 func _physics_process(_delta: float) -> void:
-	var zones = get_render_zones()
-	remove_zones(zones)
-	render_map()
+	if camera == null:
+		camera = get_node("/root/World/Player/Camera")
+	else:
+		var zones = get_render_zones()
+		remove_zones(zones)
+		render_map()
 
 func remove_zones(zones: Dictionary) -> void:
 	for zone in zone_dict:
